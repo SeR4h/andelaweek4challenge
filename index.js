@@ -19,24 +19,30 @@ const welcomeMessage = `Welcome to our news application
 2. Bloomberg
 3. BBC News
 4. CBC News
-Please choose preffered News source`;
-console.log(welcomeMessage)
-rl.question('Type option: ', function (option) {
-    if (option === '1') {
-        console.log('ABC News');
-        getTopheadlines('abc-news');
+Please choose preffered News source
+Type option: `;
+const sources = {
+    "1": {
+        name: "ABC News",
+        id: "abc-news"
+    },
+    "2": {
+        name: "Bloomberg",
+        id: "bloomberg"
+    },
+    "3": {
+        name: "BBC News",
+        id: "bbc-news"
+    },
+    "4": {
+        name: "CBC News",
+        id: "cbc-news"
     }
-    else if (option === '2') {
-        console.log('Bloomberg');
-        getTopheadlines('bloomberg');
-    }
-    else if (option === '3') {
-        console.log('BBC News');
-        getTopheadlines('bbc-news');
-    }
-    else if (option === '4') {
-        console.log('CBC News');
-        getTopheadlines('cbc-news');
+}
+rl.question(welcomeMessage, function (option) {
+    if (option in sources) {
+        console.log(sources[option].name);
+        getTopheadlines(sources[option].id);
     }
     else {
         throw new Error('Invalid input');
