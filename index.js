@@ -1,19 +1,28 @@
 var Request = require('request');
 var readline = require('readline');
+require('dotenv').config();
 var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+const newsSource = [];
+
 function getTopheadlines(preferredNewsSource) {
-    const apiKey = `e1f6aaadd26d4ced846348e1222b23d7`;
+    const apiKey = process.env.apiKey;
     const url = `https://newsapi.org/v2/top-headlines?sources=${preferredNewsSource}&apiKey=${apiKey}`;
     Request.get(url, (error, response, body) => {
         if (error) {
             return console.log(error);
         }
-        console.log(JSON.parse(body));
+        const sources = JSON.parse(body);
+        for (var i = 0; i < 10; i++) {
+            newsSource.push({ title: sources.articles[i].title, description: sources.articles[i].content, url: sources.articles[i].url });
+        }
+        console.log(sources.articles[1].source.name);
+        console.log(newsSource)
     });
 }
+
 const welcomeMessage = `Welcome to our news application
 1. ABC News
 2. Bloomberg
@@ -21,28 +30,17 @@ const welcomeMessage = `Welcome to our news application
 4. CBC News
 Please choose preffered News source
 Type option: `;
-const sources = {
-    "1": {
-        name: "ABC News",
-        id: "abc-news"
-    },
-    "2": {
-        name: "Bloomberg",
-        id: "bloomberg"
-    },
-    "3": {
-        name: "BBC News",
-        id: "bbc-news"
-    },
-    "4": {
-        name: "CBC News",
-        id: "cbc-news"
-    }
-}
+
+const sourceKeys = {
+    "1": "abc-news",
+    "2": "bloomberg",
+    "3": "bbc-news",
+    "4": "cbc-news"
+};
+
 rl.question(welcomeMessage, function (option) {
-    if (option in sources) {
-        console.log(sources[option].name);
-        getTopheadlines(sources[option].id);
+    if (option in sourceKeys) {
+        getTopheadlines(sourceKeys[option]);
     }
     else {
         throw new Error('Invalid input');
