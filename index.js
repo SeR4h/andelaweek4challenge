@@ -5,7 +5,6 @@ var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-const newsSource = [];
 
 function getTopheadlines(preferredNewsSource) {
     const apiKey = process.env.apiKey;
@@ -15,11 +14,16 @@ function getTopheadlines(preferredNewsSource) {
             return console.log(error);
         }
         const sources = JSON.parse(body);
-        for (var i = 0; i < 10; i++) {
-            newsSource.push({ title: sources.articles[i].title, description: sources.articles[i].content, url: sources.articles[i].url });
+        const newsSource = sources.articles.map(x => x)
+
+        for (const { title, content, url } of newsSource) {
+            const news = `{
+           Title:  ${title}
+           Description: ${content}
+           URL: ${url}
+           } `
+            console.log(news);
         }
-        console.log(sources.articles[1].source.name);
-        console.log(newsSource)
     });
 }
 
