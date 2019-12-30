@@ -15,12 +15,12 @@ function getTopheadlines(preferredNewsSource) {
         }
         const { articles } = JSON.parse(body);
         const [{ source: { name: sourceName } }] = articles;
-        const ArticlesArray = articles.map((article, articleIndex) => `Article (${articleIndex})
+        const articlesArray = articles.map((article, articleIndex) => `Article (${articleIndex})
 Title: ${article.title}
 ${article.content}
 Read more: ${article.url} `
         );
-        const articleString = ArticlesArray.join('\n');
+        const articleString = articlesArray.join('\n');
         const headlines = `   ${sourceName}
         ${articleString}`
         console.log(headlines)
