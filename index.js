@@ -14,17 +14,21 @@ function getTopheadlines(preferredNewsSource) {
             return console.log(error);
         }
         const { articles } = JSON.parse(body);
-        const [{ source: { name: sourceName } }] = articles;
-        const ArticlesArray = articles.map((article, articleIndex) => `Article (${articleIndex})
+        getHeadlines(articles)
+    });
+}
+
+function getHeadlines(articles) {
+    const [{ source: { name: sourceName } }] = articles;
+    const ArticlesArray = articles.map((article, articleIndex) => `Article (${articleIndex})
 Title: ${article.title}
 ${article.content}
 Read more: ${article.url} `
-        );
-        const articleString = ArticlesArray.join('\n');
-        const headlines = `   ${sourceName}
-        ${articleString}`
-        console.log(headlines)
-    });
+    );
+    const articleString = ArticlesArray.join('\n \n');
+    const headlines = `   ${sourceName}
+    ${articleString}`
+    return console.log(headlines)
 }
 
 const welcomeMessage = `Welcome to our news application
