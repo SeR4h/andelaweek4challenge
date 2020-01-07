@@ -1,6 +1,6 @@
 # Requirements
-node
-npm
+-node
+-npm
 # Setting up the project
 1. Clone the repository and move to the root of the project
 ```
