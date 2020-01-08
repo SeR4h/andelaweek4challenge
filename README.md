@@ -9,9 +9,7 @@ cd andelaweek4challenge
 ```
 2. Install dependencies
 ```
-npm install request --save
-npm install readline --save
-npm install dotenv --save
+npm install
 ```
 3. Add news api key
 - This can be done by either using a dotenv file or adding it directly in the index.js file. It is recommended adding a dotenv file since its easier and also for security purposes.  
